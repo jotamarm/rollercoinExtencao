@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Minha Extensão",
+  "version": "1.0",
+  "description": "Uma extensão simples para o Chrome.",
+  "icons": {
+    "48": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": [ "storage", "unlimitedStorage", "scripting", "activeTab" ],
+  "host_permissions": ["https://rollercoin.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://rollercoin.com/*"],
+      "js": [ "helper.js", "contentScript.js" ]
+    }
+  ]
+}
