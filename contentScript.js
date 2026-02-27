@@ -132,6 +132,7 @@ document.addEventListener('click', () => {
         const correctPage = window.location.href.endsWith("marketplace/buy");
         if (correctPage && ((cells1 && cells2) || miner)) {
             doCenasClear();
+            setTimeout(doCells, 500)
             setTimeout(doCells, 2000)
         }
         const correctPage2 = window.location.href.includes("marketplace/buy/miner/");
@@ -169,6 +170,7 @@ function doCells() {
     var cells2 = document.getElementById('2');
     var miner = document.getElementById('miner');
     var rack = document.getElementById('rack');
+    var battery = document.getElementById('battery');
     const correctPage = window.location.href.endsWith("marketplace/buy");
     if (correctPage) {
         if (cells1 && cells1.checked && cells2 && !cells2.checked) {
@@ -186,7 +188,7 @@ function doCells() {
         //else if (miner) {
         //    doCenas(0.0);
         //}
-        else if (rack.checked) {
+        else if (rack.checked || battery.checked) {
             doCenasRack();
         }
     }
@@ -198,6 +200,7 @@ function doCells() {
 
 function doSpan(cells, container, bonusT, powerT, id, isToSetData) {
     let item = container.querySelector(".item-addition");
+    //let item = container.querySelector(".item-title");
     const bonus = parseFloat(container.querySelector(".item-addition-bonus").innerText.replace("%", "")) / 100.0;
     const price = parseFloat(container.querySelector(".item-price").innerText.replace(" RLT", "").replace(" ", ""));
     const power_ = container.querySelector(".item-addition-power").innerText;
@@ -354,15 +357,20 @@ function doCenasRack() {
         '645a47a0eccd3c43207474cb': 2.1,
         '64d6299b6d7008148575df79': 2.99,
         '6571ab76ca8bfef34adcd9ea': 2.99,
-        '662a2ed024d9775f45fd6ea2': 3.99,
+        '662a2ed024d9775f45fd6ea2': 3.49,
         '65bba192a19c394aa309623f': 3.99,
+        '668d22fc5a25375fc803333c': 5.99,
         '6825aaa7e2da6536108ec08e': 6.99,
-        '668d22fc5a25375fc803333c': 6.99,
         '6752f0a50b2ea70a05bc1c5b': 9.5,
         '67ae5d6532b2ba8a144d0f0a': 9.5,
-        '68dbc757c05c26894e019db2': 16.99,
-        '68109bc6af17e9c540319ed1': 16.99,
-        '687953dc850c0148212ddf82': 16.99
+        '68dbc757c05c26894e019db2': 14.99,
+        '68109bc6af17e9c540319ed1': 15.99,
+        '6938408e4dba654aa4065fda': 15.99,
+        '687953dc850c0148212ddf82': 15.99,
+
+        '690a70aae6988d19928d7101': 2.99,
+
+        '6454bcdf75f06df66d28af04': 0.0399
     };
 
     //console.log("cenas");
@@ -375,13 +383,17 @@ function doCenasRack() {
             //});
 
             if (racksDictionary[id]) {
-                let item = container.querySelector(".item-addition");
+                //let item = container.querySelector(".item-addition");
+                let item = container.querySelector(".item-title");
                 let container2 = newSpanContainer(item, "span-new");
                 const price = parseFloat(container.querySelector(".item-price").innerText.replace(" RLT", "").replace(" ", ""));
 
                 newSpanSeparador(container2, " | ");
-                if (price <= racksDictionary[id]) {
+                if (price <= racksDictionary[id]/1.1) {
                     newSpanText(container2, "" + racksDictionary[id] + "buy buy buy", "green");
+                }
+                else if (price <= racksDictionary[id]) {
+                    newSpanText(container2, "" + racksDictionary[id], "lightGreen");
                 }
                 else {
                     newSpanText(container2, "" + racksDictionary[id], "orange");
